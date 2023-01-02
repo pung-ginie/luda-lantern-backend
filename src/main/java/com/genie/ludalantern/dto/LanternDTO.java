@@ -17,12 +17,15 @@ public  class LanternDTO {
     private boolean isPublic;
     private ConnectEntity connectEntity;
 
+    private Long connectId;
+
     public LanternDTO(final LanternEntity lanternEntity){
         this.lanternId = lanternEntity.getLanternId();
         this.lantetnNumber = lanternEntity.getLantetnNumber();
         this.wish = lanternEntity.getWish();
         this.isPublic = lanternEntity.isAvtive();
-        this.connectEntity = lanternEntity.getConnectEntity();
+        //this.connectEntity = lanternEntity.getConnectEntity();
+        this.connectId= lanternEntity.getConnectEntity().getConnectId();
     }
 
     public  static LanternEntity toLanternEntity(final LanternDTO lanternDTO){

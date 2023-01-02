@@ -26,6 +26,7 @@ public class ConnectEntity {
     int lanternCount;
 
 
+    
     //유저와 풍등 일대다 관계
     @JsonManagedReference
     @OneToMany(mappedBy ="connectEntity",fetch = FetchType.EAGER)
