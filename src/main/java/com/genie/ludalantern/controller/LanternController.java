@@ -79,6 +79,6 @@ public class LanternController {
         return ResponseEntity.ok(response);
     }
 
-     
+
 
 }
