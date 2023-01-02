@@ -15,6 +15,9 @@ public interface LanternRepository  extends JpaRepository<LanternEntity,Long> {
     LanternEntity findByLanternId(Long lanternId);
 
     List<LanternEntity> findAllByConnectEntity(ConnectEntity connectEntity);
+   List<LanternEntity> findByAvtive(boolean active);
+
+    List<LanternEntity> findAll();
 
 
 }

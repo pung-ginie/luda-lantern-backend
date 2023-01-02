@@ -9,7 +9,9 @@ import java.util.List;
 public interface LanternService {
     public List<LanternEntity> createLantern(final LanternEntity lanternEntity, final ConnectEntity connectEntity);
     public LanternEntity retrieveLanternByUserId (final String userId);
-    public List<LanternEntity> retrieveLantern();
+
+    public List<LanternEntity> retrieveLanternsByConnectId(final String userId);
+    public List<LanternEntity> retrieveAllLantern();
     public LanternEntity updateLantern(final LanternEntity lanternEntity );
 
 }

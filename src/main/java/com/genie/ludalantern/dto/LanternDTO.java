@@ -21,7 +21,7 @@ public  class LanternDTO {
         this.lanternId = lanternEntity.getLanternId();
         this.lantetnNumber = lanternEntity.getLantetnNumber();
         this.wish = lanternEntity.getWish();
-        this.isPublic = lanternEntity.isPublic();
+        this.isPublic = lanternEntity.isAvtive();
         this.connectEntity = lanternEntity.getConnectEntity();
     }
 
@@ -30,7 +30,7 @@ public  class LanternDTO {
                 lanternId(lanternDTO.getLanternId()).
                 lantetnNumber(lanternDTO.getLantetnNumber()).
                 wish(lanternDTO.getWish()).
-                isPublic(lanternDTO.isPublic()).
+                avtive(lanternDTO.isPublic()).
                 connectEntity(lanternDTO.getConnectEntity()).
                 build();
     }

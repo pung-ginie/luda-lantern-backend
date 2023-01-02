@@ -26,7 +26,7 @@ public class LanternEntity {
     String wish;
 
     @Column(name="isPublic")
-    boolean isPublic;
+    boolean avtive;
 
     @JsonBackReference
     @ManyToOne(fetch = FetchType.EAGER)
@@ -36,8 +36,8 @@ public class LanternEntity {
 
 
     @Builder
-    public LanternEntity(int lantetnNumber, String wish,boolean isPublic, ConnectEntity connectEntity){
-        this.isPublic = isPublic;
+    public LanternEntity(int lantetnNumber, String wish, boolean avtive, ConnectEntity connectEntity){
+        this.avtive = avtive;
         this.lantetnNumber = lantetnNumber;
         this.wish = wish;
 

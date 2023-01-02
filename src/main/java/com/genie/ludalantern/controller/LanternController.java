@@ -10,10 +10,7 @@ import com.genie.ludalantern.service.LanternServiceImple;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -22,14 +19,16 @@ import java.util.stream.Collectors;
 @RequestMapping("/v1/lantern")
 public class LanternController {
     public final LanternServiceImple lanternService;
+    private final ConnectServiceImple connectService;
 
     @Autowired
-    private ConnectServiceImple connectService;
-
-    @Autowired
-    public LanternController(LanternServiceImple lanternService) {
+    public LanternController(LanternServiceImple lanternService, ConnectServiceImple connectService) {
         this.lanternService = lanternService;
+        this.connectService = connectService;
     }
+
+
+
 
     @PostMapping()
     public ResponseEntity<?> createLantern(@AuthenticationPrincipal String userId, @RequestBody LanternDTO lanternDTO){
@@ -61,5 +60,25 @@ public class LanternController {
         }
 
     }
+
+    @GetMapping("/my-lantern")
+    public ResponseEntity<?> retrieveMine(@AuthenticationPrincipal String userId){
+        System.out.println("UserID : " + userId);
+        List<LanternEntity> entities = lanternService.retrieveLanternsByConnectId(userId);
+        List<LanternDTO> dtos = entities.stream().map(LanternDTO::new).collect(Collectors.toList());
+        ResponseDTO<LanternDTO> response = ResponseDTO.<LanternDTO>builder().data(dtos).build();
+        return ResponseEntity.ok(response);
+    }
+
+
+    @GetMapping("/all-lantern")
+    public ResponseEntity<?> retrieveAll(){
+        List<LanternEntity> entities = lanternService.retrieveAllLantern();
+        List<LanternDTO> dtos = entities.stream().map(LanternDTO::new).collect(Collectors.toList());
+        ResponseDTO<LanternDTO> response = ResponseDTO.<LanternDTO>builder().data(dtos).build();
+        return ResponseEntity.ok(response);
+    }
+
+     
 
 }
