@@ -1,7 +1,7 @@
 plugins {
-	id 'java'
-	id 'org.springframework.boot' version '2.7.7'
+	id 'org.springframework.boot' version '2.5.7'
 	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+	id 'java'
 }
 
 group = 'com.genie'
@@ -17,7 +17,10 @@ configurations {
 repositories {
 	mavenCentral()
 }
-
+bootRun {
+	String activeProfile = System.properties['spring.profiles.active']
+	systemProperty "spring.profiles.active", activeProfile
+}
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
@@ -48,4 +51,23 @@ dependencies {
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+task('release') {
+	dependsOn("build")
+	doLast {
+		def stdout = new ByteArrayOutputStream()
+		exec {
+			commandLine 'eb', 'setenv', 'SPRING_PROFILES_ACTIVE=prod'
+			standardOutput = stdout;
+		}
+
+		println "eb setenv SPRING_PROFILES_ACTIVE=prod :\n$stdout";
+		exec {
+			commandLine 'eb', 'deploy'
+			standardOutput = stdout
+		}
+		println "eb deploy :\n$stdout";
+		println "Release succeeded."
+	}
 }
