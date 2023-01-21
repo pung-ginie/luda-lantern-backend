@@ -21,6 +21,10 @@ public class ConnectServiceImple implements ConnectService {
     @Override
     public ConnectEntity createConnect(UserEntity userEntity) {
 
+        if (userEntity == null){
+            throw new RuntimeException("Invelid value");
+        }
+
        ConnectEntity connectEntity = new ConnectEntity();
 
        connectEntity.setLanternCount(0);
